@@ -1,2 +1,7 @@
-# golang-benchmark
-Golang Benchmark Tests
+# Golang Benchmark Tests
+
+
+## Sample Results
+
+![results](img/results.png)
+
