@@ -7,6 +7,7 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"go.uber.org/zap/zaptest"
+	"golang.org/x/exp/slog"
 	"io"
 	"log"
 	"os"
@@ -77,4 +78,16 @@ func withBenchedLogger(b *testing.B, f func(*zap.Logger)) {
 			f(logger)
 		}
 	})
+}
+
+func Benchmark_slog(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		null, _ := os.Open(os.DevNull)
+		os.Stdout = null
+		os.Stderr = null
+		logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
+		logger.Error("Error Test")
+		logger.Info("Info Test")
+		logger.Warn("Warning Test")
+	}
 }
